@@ -1,111 +1,63 @@
-import { getDailyPerformanceScore } from "../utils/analiticsUtils";
-const HeatMap = ({activities}) => {
-    const getDateKey = (date) => {
-    return date.toISOString().split("T")[0];
-  };
-
-  const getLast365Days = () => {
-
-    const days = [];
-
-    const today = new Date();
-
-    for (let i = 364; i >= 0; i--) {
-
-      const date = new Date(today);
-
-      date.setDate(
-        today.getDate() - i
-      );
-
-      days.push(date);
-    }
-
-    return days;
-  };
-
-  const getDailyScore = (date) => {
-
-  const dateKey =
-    date.toISOString().split("T")[0];
-
-  return getDailyPerformanceScore(
-    activities,
-    dateKey
-  );
-};
+import { getDailyPerformanceScore, getLast365Days } from "../utils/analiticsUtils";
 
 const getLevel = (score) => {
-
-  if (score === 0) {
-    return 0;
-  }
-
-  if (score < 40) {
-    return 1;
-  }
-
-  if (score < 70) {
-    return 2;
-  }
-
-  if (score < 90) {
-    return 3;
-  }
-
+  if (score === 0) return 0;
+  if (score < 40) return 1;
+  if (score < 70) return 2;
+  if (score < 90) return 3;
   return 4;
 };
 
+const formatDateLabel = (dateKey) =>
+  new Date(`${dateKey}T00:00:00`).toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+
+const HeatMap = ({ activities }) => {
   const days = getLast365Days();
 
   return (
-    <div>
-      <h2>Consistency Heatmap</h2>
-
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns:
-            "repeat(30, 20px)",
-          gap: "4px"
-        }}
-      >
-
-        {days.map((date) => {
-
-          const score =
-              getDailyScore(date);
-
-          const level =
-              getLevel(score);
-
-          return (
-            <div
-              key={date.toISOString()}
-              title={`${getDateKey(date)} - Performance: ${score}/100`}
-              style={{
-                width: "20px",
-                height: "20px",
-                border: "1px solid #ccc",
-                backgroundColor:
-                level === 0
-                  ? "#eeeeee"
-                  : level === 1
-                  ? "#c6e48b"
-                  : level === 2
-                  ? "#7bc96f"
-                  : level === 3
-                  ? "#40c463"
-                  : "#239a3b"
-              }}
-            />
-          );
-        })}
-
+    <section className="dashboard-section heatmap-section">
+      <div className="section-heading">
+        <div>
+          <span className="section-eyebrow">Consistency</span>
+          <h2>Yearly Heatmap</h2>
+          <p className="section-description">
+            Daily performance over the last 365 days
+          </p>
+        </div>
       </div>
 
-    </div>
-  )
-}
+      <div className="heatmap">
+        <div className="heatmap__grid">
+          {days.map((dateKey) => {
+            const score = getDailyPerformanceScore(activities, dateKey);
+            const level = getLevel(score);
 
-export default HeatMap
+            return (
+              <div
+                key={dateKey}
+                className={`heatmap__cell heatmap__cell--level-${level}`}
+                title={`${formatDateLabel(dateKey)} — Performance: ${score}/100`}
+              />
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="heatmap__legend">
+        <span>Less</span>
+        <span className="heatmap__cell heatmap__cell--level-0" />
+        <span className="heatmap__cell heatmap__cell--level-1" />
+        <span className="heatmap__cell heatmap__cell--level-2" />
+        <span className="heatmap__cell heatmap__cell--level-3" />
+        <span className="heatmap__cell heatmap__cell--level-4" />
+        <span>More</span>
+      </div>
+    </section>
+  );
+};
+
+export default HeatMap;

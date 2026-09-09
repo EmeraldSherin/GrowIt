@@ -1,142 +1,113 @@
 import { useEffect, useState } from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route
+} from "react-router-dom";
 
-import ActivityForm from "./components/ActivityForm";
-import ActivityList from "./components/ActivityList";
-import DashboardStats from "./components/DashboardStats";
-import { getToday } from "./utils/dateUtils";
-import Calendar from "./components/Calender";
-import HeatMap from "./components/HeatMap";
-import WeeklyStats from "./components/WeeklyStats";
-import StreakStats from "./components/StreakStats";
-import Insights from "./components/Insights";
+import Layout from "./components/Layout";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Splash from "./components/Splash";
+
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+
+import Dashboard from "./pages/Dashboard";
+import Activities from "./pages/Activities";
+import CalendarPage from "./pages/CalendarPage";
+import Analytics from "./pages/Analytics";
+import Goals from "./pages/Goals";
+
+// How long the splash stays fully visible before it starts fading,
+// and how long the fade itself takes, in ms.
+const SPLASH_HOLD = 1800;
+const SPLASH_FADE = 450;
 
 function App() {
 
-  const [activities, setActivities] = useState([]);
-
-  const [editingActivity,setEditingActivity]=useState(null)
-
-  const [selectedDate, setSelectedDate] = useState(
-    getToday()
-  );
+  const [showSplash, setShowSplash] = useState(true);
+  const [splashLeaving, setSplashLeaving] = useState(false);
 
   useEffect(() => {
-    fetchActivities();
+    const leaveTimer = setTimeout(() => setSplashLeaving(true), SPLASH_HOLD);
+    const hideTimer = setTimeout(
+      () => setShowSplash(false),
+      SPLASH_HOLD + SPLASH_FADE
+    );
+
+    return () => {
+      clearTimeout(leaveTimer);
+      clearTimeout(hideTimer);
+    };
   }, []);
 
-  const fetchActivities = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:5000/api/activities"
-      );
-
-      const data = await response.json();
-
-      setActivities(data);
-
-    } catch (error) {
-      console.error("Error fetching activities:", error);
-    }
-  };
-
- const handleActivityAdded = (activity) => {
-  setActivities((currentActivities) => {
-
-    const exists = currentActivities.some(
-      (item) => item._id === activity._id
-    );
-
-    if (exists) {
-      return currentActivities.map((item) =>
-        item._id === activity._id
-          ? activity
-          : item
-      );
-    }
-
-    return [
-      ...currentActivities,
-      activity
-    ];
-  });
-};
-
-  const filteredActivities = activities.filter(
-    (activity) => {
-      return activity.date.startsWith(selectedDate);
-    }
-  );
-
-  const handleEdit=(activity)=>{
-    setEditingActivity(activity)
-  }
-  const handleDelete = async (id) => {
-  try {
-    const response = await fetch(
-      `http://localhost:5000/api/activities/${id}`,
-      {
-        method: "DELETE"
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("Failed to delete activity");
-    }
-
-    setActivities(
-      activities.filter(
-        (activity) => activity._id !== id
-      )
-    );
-
-  } catch (error) {
-    console.error("Error deleting activity:", error);
-  }
-};
-
   return (
-    <div>
 
-      <h1>GrowIt</h1>
+    <BrowserRouter>
 
-      <Calendar
-      activities={activities}
-      onDateSelect={setSelectedDate}
-    />
+      {showSplash && <Splash leaving={splashLeaving} />}
 
-      <DashboardStats
-        activities={filteredActivities}
-        selectedDate={selectedDate}
-      />
+      <Routes>
 
-      <WeeklyStats
-      activities={activities}
-      />
-      <StreakStats
-      activities={activities}
-      />
+        {/* ============================= */}
+        {/* PUBLIC ROUTES */}
+        {/* ============================= */}
 
-      <Insights
-      activities={activities}
-      />
+        <Route
+          path="/login"
+          element={<Login />}
+        />
 
-      <HeatMap
-      activities={activities}
-      />
-      
-      <ActivityForm
-        onActivityAdded={handleActivityAdded}
-        editingActivity={editingActivity}
-        setEditingActivity={setEditingActivity}
-      />
+        <Route
+          path="/register"
+          element={<Register />}
+        />
 
-      <ActivityList
-        activities={filteredActivities}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-      />
 
-    </div>
+        {/* ============================= */}
+        {/* PROTECTED APPLICATION */}
+        {/* ============================= */}
+
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Layout />
+            </ProtectedRoute>
+          }
+        >
+
+          <Route
+            index
+            element={<Dashboard />}
+          />
+
+          <Route
+            path="activities"
+            element={<Activities />}
+          />
+
+          <Route
+            path="calendar"
+            element={<CalendarPage />}
+          />
+
+          <Route
+            path="analytics"
+            element={<Analytics />}
+          />
+
+          <Route
+            path="goals"
+            element={<Goals />}
+          />
+
+        </Route>
+
+      </Routes>
+
+    </BrowserRouter>
+
   );
 }
 

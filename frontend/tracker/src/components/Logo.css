@@ -1,0 +1,434 @@
+/* =========================================================
+   GROWIT LOGO
+========================================================= */
+
+.growit-logo {
+  display: inline-flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   MAIN WORDMARK
+========================================================= */
+
+.growit-wordmark {
+  display: inline-flex;
+
+  align-items: baseline;
+}
+
+
+/* =========================================================
+   G CONTAINER
+========================================================= */
+
+.growit-g-container {
+  position: relative;
+
+  display: inline-block;
+
+  flex-shrink: 0;
+
+  /*
+    THIS controls G size
+  */
+
+  font-size: 72px;
+
+  line-height: 1;
+
+  z-index: 1;
+}
+
+
+/* =========================================================
+   G
+
+   G IS IN FRONT OF THE TREND ICON
+========================================================= */
+
+.growit-g {
+  position: relative;
+
+  display: block;
+
+  font-family:
+    var(--font-body),
+    "Manrope",
+    sans-serif;
+
+  font-size: 1em;
+
+  font-weight: 800;
+
+  line-height: 1;
+
+  letter-spacing: -0.04em;
+
+  color:
+    var(
+      --color-primary-strong,
+      #71350f
+    );
+
+  z-index: 3;
+}
+
+
+/* =========================================================
+   BIG TREND ICON
+
+   THIS IS COMPLETELY INDEPENDENT FROM G.
+
+   Change width/height/top/right freely.
+========================================================= */
+
+.growit-trend-icon {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  top: -105px;
+  right: 7px;
+  color: var(--color-primary-strong, #71350f);
+  z-index: 1;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* =========================================================
+   rowIt
+========================================================= */
+
+.growit-rest {
+  display: inline-flex;
+
+  align-items: baseline;
+
+  margin-left: 0.055em;
+
+  font-family:
+    var(--font-body),
+    "Manrope",
+    sans-serif;
+
+  font-size: 39px;
+
+  font-weight: 600;
+
+  line-height: 1;
+
+  letter-spacing: -0.01em;
+
+  color:
+    var(
+      --color-primary-strong,
+      #71350f
+    );
+}
+
+
+.growit-letter {
+  display: inline-block;
+}
+
+
+/* =========================================================
+   TAGLINE
+========================================================= */
+
+.growit-logo__tagline {
+  display: block;
+
+  margin-top: 7px;
+
+  font-family:
+    var(--font-body),
+    "Manrope",
+    sans-serif;
+
+  font-size: 9px;
+
+  font-weight: 700;
+
+  line-height: 1;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.22em;
+
+  color:
+    var(
+      --color-primary,
+      #a77b63
+    );
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   SMALL
+========================================================= */
+
+.growit-logo--sm .growit-g-container {
+  font-size: 42px;
+}
+
+.growit-logo--sm .growit-rest {
+  font-size: 24px;
+}
+
+.growit-logo--sm .growit-logo__tagline {
+  font-size: 6px;
+
+  letter-spacing: 0.16em;
+}
+
+
+/* =========================================================
+   MEDIUM
+========================================================= */
+
+.growit-logo--md .growit-g-container {
+  font-size: 57px;
+}
+
+.growit-logo--md .growit-rest {
+  font-size: 33px;
+}
+
+
+/* =========================================================
+   LARGE
+========================================================= */
+
+.growit-logo--lg .growit-g-container {
+  font-size: 82px;
+}
+
+.growit-logo--lg .growit-rest {
+  font-size: 47px;
+}
+
+.growit-logo--lg .growit-logo__tagline {
+  margin-top: 10px;
+
+  font-size: 10px;
+
+  letter-spacing: 0.25em;
+}
+
+
+/* =========================================================
+   SPLASH ANIMATION
+========================================================= */
+
+/*
+   G comes first
+*/
+
+.growit-logo--animated
+.growit-g {
+  opacity: 0;
+
+  transform: scale(0.8);
+
+  animation:
+    growit-g-in
+    500ms
+    cubic-bezier(
+      0.16,
+      1,
+      0.3,
+      1
+    )
+    forwards;
+}
+
+
+/*
+   BIG TREND ICON appears separately
+*/
+
+.growit-logo--animated
+.growit-trend-icon {
+  opacity: 0;
+
+  transform:
+    scale(0.7)
+    translate(-12px, 12px);
+
+  transform-origin: center;
+
+  animation:
+    growit-trend-in
+    500ms
+    cubic-bezier(
+      0.16,
+      1,
+      0.3,
+      1
+    )
+    250ms
+    forwards;
+}
+
+
+/*
+   Letters
+*/
+
+.growit-logo--animated
+.growit-letter {
+  opacity: 0;
+
+  transform: translateX(-7px);
+
+  animation:
+    growit-letter-in
+    280ms
+    cubic-bezier(
+      0.16,
+      1,
+      0.3,
+      1
+    )
+    forwards;
+}
+
+
+/*
+   Tagline
+*/
+
+.growit-logo--animated
+.growit-logo__tagline {
+  opacity: 0;
+
+  transform: translateY(5px);
+
+  animation:
+    growit-tagline-in
+    400ms
+    ease
+    1080ms
+    forwards;
+}
+
+
+/* =========================================================
+   KEYFRAMES
+========================================================= */
+
+@keyframes growit-g-in {
+
+  from {
+    opacity: 0;
+
+    transform:
+      scale(0.8);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      scale(1);
+  }
+
+}
+
+
+@keyframes growit-trend-in {
+
+  from {
+    opacity: 0;
+
+    transform:
+      scale(0.7)
+      translate(-12px, 12px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      scale(1)
+      translate(0, 0);
+  }
+
+}
+
+
+@keyframes growit-letter-in {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translateX(-7px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateX(0);
+  }
+
+}
+
+
+@keyframes growit-tagline-in {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+.visually-hidden {
+  position: absolute;
+
+  width: 1px;
+
+  height: 1px;
+
+  padding: 0;
+
+  margin: -1px;
+
+  overflow: hidden;
+
+  clip: rect(
+    0,
+    0,
+    0,
+    0
+  );
+
+  white-space: nowrap;
+
+  border: 0;
+}

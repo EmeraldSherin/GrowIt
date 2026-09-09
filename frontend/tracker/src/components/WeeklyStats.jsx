@@ -1,41 +1,66 @@
-import { getWeeklyStats } from "../utils/analiticsUtils"
-const WeeklyStats = ({activities}) => {
-    const stats=getWeeklyStats(activities);
+import { getWeeklyStats } from "../utils/analiticsUtils";
+
+const WeeklyStats = ({ activities }) => {
+  const stats = getWeeklyStats(activities);
+
   return (
-    <div>
-      <h2>Last 7 Days</h2>
+    <section className="dashboard-section">
+      <div className="section-heading">
+        <div>
+          <span className="section-eyebrow">Weekly review</span>
+          <h2>Last 7 Days</h2>
+        </div>
 
-      <p>
-        Total Activities:{" "}
-        {stats.totalActivities}
-      </p>
+        <span className="section-meta">Weekly performance</span>
+      </div>
 
-      <p>
-        Completed:{" "}
-        {stats.completedActivities}
-      </p>
+      <div className="stats-grid weekly-stats-grid">
+        <div className="stat-card">
+          <span className="stat-card__label">Total Activities</span>
+          <strong className="stat-card__value">
+            {stats.totalActivities}
+          </strong>
+        </div>
 
-      <p>
-        Completion Rate:{" "}
-        {stats.completionRate}%
-      </p>
+        <div className="stat-card stat-card--success">
+          <span className="stat-card__label">Completed</span>
+          <strong className="stat-card__value">
+            {stats.completedActivities}
+          </strong>
+        </div>
 
-      <p>
-        Average Daily Completion:{" "}
-        {stats.averageDailyCompletion}%
-      </p>
+        <div className="stat-card">
+          <span className="stat-card__label">Completion Rate</span>
+          <strong className="stat-card__value">
+            {stats.completionRate}%
+          </strong>
+        </div>
 
-      <p>
-        Planned Time:{" "}
-        {stats.plannedMinutes} minutes
-      </p>
+        <div className="stat-card stat-card--primary">
+          <span className="stat-card__label">Average Daily Completion</span>
+          <strong className="stat-card__value">
+            {stats.averageDailyCompletion}%
+          </strong>
+        </div>
 
-      <p>
-        Actual Time:{" "}
-        {stats.actualMinutes} minutes
-      </p>
-    </div>
-  )
-}
+        <div className="stat-card">
+          <span className="stat-card__label">Planned Time</span>
+          <strong className="stat-card__value stat-card__value--small">
+            {stats.plannedMinutes}
+            <small> min</small>
+          </strong>
+        </div>
 
-export default WeeklyStats
+        <div className="stat-card">
+          <span className="stat-card__label">Actual Time</span>
+          <strong className="stat-card__value stat-card__value--small">
+            {stats.actualMinutes}
+            <small> min</small>
+          </strong>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default WeeklyStats;

@@ -1,142 +1,112 @@
 import { useState } from "react";
 
-const Calender=({ activities, onDateSelect })=> {
+const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-  const [currentDate, setCurrentDate] = useState(
-    new Date()
-  );
+const Calender = ({ activities, onDateSelect }) => {
+  const [currentDate, setCurrentDate] = useState(new Date());
 
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
 
-  const firstDay = new Date(
-    year,
-    month,
-    1
-  ).getDay();
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const monthName = currentDate.toLocaleString("default", { month: "long" });
 
-  const daysInMonth = new Date(
-    year,
-    month + 1,
-    0
-  ).getDate();
+  const today = new Date();
 
-  const monthName = currentDate.toLocaleString(
-    "default",
-    {
-      month: "long"
-    }
-  );
+  const buildDateString = (day) =>
+    `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(
+      2,
+      "0"
+    )}`;
 
   const getActivityCount = (day) => {
-
-    const dateString =
-      `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
-
+    const dateString = buildDateString(day);
     return activities.filter(
-      (activity) =>
-        activity.date.startsWith(dateString)
+      (activity) => activity.date && activity.date.startsWith(dateString)
     ).length;
   };
 
-  const previousMonth = () => {
-    setCurrentDate(
-      new Date(year, month - 1, 1)
-    );
-  };
+  const isToday = (day) =>
+    today.getFullYear() === year &&
+    today.getMonth() === month &&
+    today.getDate() === day;
 
-  const nextMonth = () => {
-    setCurrentDate(
-      new Date(year, month + 1, 1)
-    );
-  };
+  const goToPreviousMonth = () => setCurrentDate(new Date(year, month - 1, 1));
+  const goToNextMonth = () => setCurrentDate(new Date(year, month + 1, 1));
 
   return (
-    <div>
+    <div className="calendar">
+      <div className="calendar__header">
+        <div>
+          <span className="section-eyebrow">Activity tracker</span>
+          <h2>Activity Calendar</h2>
+        </div>
 
-      <h2>Activity Calendar</h2>
+        <div className="calendar__navigation">
+          <button
+            type="button"
+            className="calendar__nav-button"
+            onClick={goToPreviousMonth}
+            aria-label="Previous month"
+          >
+            ←
+          </button>
 
-      <div>
+          <strong className="calendar__month">
+            {monthName} {year}
+          </strong>
 
-        <button onClick={previousMonth}>
-          ←
-        </button>
-
-        <strong>
-          {monthName} {year}
-        </strong>
-
-        <button onClick={nextMonth}>
-          →
-        </button>
-
+          <button
+            type="button"
+            className="calendar__nav-button"
+            onClick={goToNextMonth}
+            aria-label="Next month"
+          >
+            →
+          </button>
+        </div>
       </div>
 
-      <br />
-
-      <div>
-        Sun&nbsp;&nbsp;
-        Mon&nbsp;&nbsp;
-        Tue&nbsp;&nbsp;
-        Wed&nbsp;&nbsp;
-        Thu&nbsp;&nbsp;
-        Fri&nbsp;&nbsp;
-        Sat
+      <div className="calendar__weekdays">
+        {WEEKDAYS.map((day) => (
+          <span key={day}>{day}</span>
+        ))}
       </div>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns:
-            "repeat(7, 1fr)",
-          gap: "10px",
-          marginTop: "10px"
-        }}
-      >
-
-        {Array.from({
-          length: firstDay
-        }).map((_, index) => (
-          <div key={`empty-${index}`} />
+      <div className="calendar__grid">
+        {Array.from({ length: firstDay }).map((_, index) => (
+          <div key={`empty-${index}`} className="calendar__empty" />
         ))}
 
-        {Array.from({
-          length: daysInMonth
-        }).map((_, index) => {
-
+        {Array.from({ length: daysInMonth }).map((_, index) => {
           const day = index + 1;
-
-          const count =
-            getActivityCount(day);
+          const count = getActivityCount(day);
+          const dateString = buildDateString(day);
 
           return (
             <button
+              type="button"
               key={day}
-              onClick={() => {
-
-                const dateString =
-                  `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
-
-                onDateSelect(dateString);
-              }}
+              className={`calendar__day${
+                isToday(day) ? " calendar__day--today" : ""
+              }${count > 0 ? " calendar__day--active" : ""}`}
+              onClick={() => onDateSelect(dateString)}
             >
-
-              <div>{day}</div>
+              <span className="calendar__day-number">{day}</span>
 
               {count > 0 && (
-                <small>
-                  {count} activities
-                </small>
+                <span className="calendar__activity">
+                  <span className="calendar__activity-dot" />
+                  {count}
+                </span>
               )}
-
             </button>
           );
         })}
-
       </div>
-
     </div>
   );
-}
+};
 
 export default Calender;

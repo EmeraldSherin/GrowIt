@@ -1,0 +1,192 @@
+/* =========================================================
+   GOAL FORM
+
+   Field/input/button styling comes from the global tokens
+   in index.css — this only adds the row layout.
+========================================================= */
+
+.goal-form {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.goal-form__field {
+  flex: 2;
+  min-width: 200px;
+  margin-bottom: 0;
+}
+
+.goal-form__field--target {
+  flex: 1;
+  min-width: 120px;
+}
+
+.goal-form__submit {
+  flex-shrink: 0;
+}
+
+/* =========================================================
+   GOAL LIST
+========================================================= */
+
+.goal-list__empty {
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 32px 20px;
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+.goal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+/* =========================================================
+   GOAL CARD
+========================================================= */
+
+.goal-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.goal-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+  border-color: color-mix(in srgb, var(--color-primary) 25%, var(--color-border));
+}
+
+.goal-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.goal-card__title {
+  font-family: var(--font-display);
+  font-size: 17px;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.goal-card__delete {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+}
+
+.goal-card__delete:hover {
+  color: var(--color-danger);
+  background: var(--color-danger-bg);
+}
+
+.goal-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.goal-card__progress-text {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.goal-card__badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.goal-card__badge--not-started {
+  color: var(--color-text-secondary);
+  background: var(--color-border);
+}
+
+.goal-card__badge--in-progress {
+  color: var(--color-primary-strong);
+  background: var(--sidebar-active-bg);
+}
+
+.goal-card__badge--completed {
+  color: var(--color-success);
+  background: color-mix(in srgb, var(--color-success) 15%, var(--color-card));
+}
+
+.goal-card__progress-track {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--color-border);
+}
+
+.goal-card__progress-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-success));
+  transition: width var(--transition-base);
+}
+
+.goal-card__percentage {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.goal-card__progress-button {
+  margin-top: 4px;
+  align-self: flex-start;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 560px) {
+  .goal-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .goal-form__field,
+  .goal-form__field--target {
+    min-width: 0;
+  }
+
+  .goal-form__submit {
+    width: 100%;
+  }
+
+  .goal-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .goal-card {
+    transition: none;
+  }
+
+  .goal-card__progress-fill {
+    transition: none;
+  }
+}

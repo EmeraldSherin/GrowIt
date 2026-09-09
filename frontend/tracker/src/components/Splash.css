@@ -1,0 +1,301 @@
+/* =========================================================
+   GROWIT SPLASH SCREEN
+========================================================= */
+
+.splash-screen {
+  position: fixed;
+  inset: 0;
+
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 50% 42%,
+      rgba(255, 248, 238, 0.95) 0%,
+      rgba(247, 237, 225, 0.95) 35%,
+      #f3e5d7 100%
+    );
+
+  z-index: 9999;
+}
+
+
+/* =========================================================
+   SUBTLE WARM LIGHT
+========================================================= */
+
+.splash-screen::before {
+  content: "";
+
+  position: absolute;
+
+  width: 700px;
+  height: 700px;
+
+  left: 50%;
+  top: 45%;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 250, 240, 0.95) 0%,
+      rgba(255, 248, 237, 0.45) 45%,
+      transparent 72%
+    );
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   BOTTOM CURVE
+========================================================= */
+
+.splash-screen::after {
+  content: "";
+
+  position: absolute;
+
+  width: 130%;
+  height: 240px;
+
+  left: -15%;
+  bottom: -170px;
+
+  border-radius: 50% 50% 0 0;
+
+  background:
+    rgba(225, 202, 183, 0.30);
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   SPLASH CONTENT
+========================================================= */
+
+.splash-screen__content {
+  position: relative;
+
+  z-index: 2;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 100%;
+}
+
+
+/* =========================================================
+   SPLASH LOGO
+
+   IMPORTANT:
+   These styles affect ONLY the logo inside Splash.
+   Dashboard is NOT affected.
+========================================================= */
+
+.splash-logo {
+  transform: scale(1.35);
+
+  transform-origin: center center;
+}
+
+
+/* =========================================================
+   MAKE SPLASH G BIGGER
+========================================================= */
+
+.splash-logo .growit-g-container {
+  font-size: 105px;
+}
+
+
+/* =========================================================
+   SPLASH TREND ICON
+
+   ONLY SPLASH ARROW IS CHANGED.
+========================================================= */
+
+.splash-logo .growit-trend-icon {
+  width: 330px;
+  height: 330px;
+
+  top: -80px;
+  right: 0px;
+
+  color: #71350f;
+
+  z-index: 1;
+
+  overflow: visible;
+}
+
+
+/* =========================================================
+   SPLASH G IN FRONT
+========================================================= */
+
+.splash-logo .growit-g {
+  position: relative;
+
+  color: #71350f;
+
+  z-index: 3;
+}
+
+
+/* =========================================================
+   SPLASH rowIt
+========================================================= */
+
+.splash-logo .growit-rest {
+  font-size: 55px;
+
+  color: #71350f;
+}
+
+
+/* =========================================================
+   SPLASH TAGLINE
+========================================================= */
+
+.splash-logo .growit-logo__tagline {
+  margin-top: 14px;
+
+  font-size: 11px;
+
+  letter-spacing: 0.28em;
+
+  color: #9b6547;
+}
+
+
+/* =========================================================
+   LOADING BAR
+========================================================= */
+
+.splash-loading {
+  width: 110px;
+  height: 3px;
+
+  margin-top: 55px;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background: rgba(113, 53, 15, 0.15);
+}
+
+
+.splash-loading span {
+  display: block;
+
+  width: 35%;
+
+  height: 100%;
+
+  border-radius: inherit;
+
+  background: #71350f;
+
+  animation:
+    splash-loading
+    1.2s
+    ease-in-out
+    infinite;
+}
+
+
+@keyframes splash-loading {
+
+  0% {
+    transform: translateX(-120%);
+  }
+
+  50% {
+    transform: translateX(180%);
+  }
+
+  100% {
+    transform: translateX(300%);
+  }
+
+}
+
+
+/* =========================================================
+   SPLASH EXIT
+========================================================= */
+
+.splash-screen--leaving {
+  animation:
+    splash-leave
+    500ms
+    ease
+    forwards;
+}
+
+
+@keyframes splash-leave {
+
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .splash-logo {
+    transform: scale(1.05);
+  }
+
+  .splash-logo .growit-g-container {
+    font-size: 85px;
+  }
+
+  .splash-logo .growit-rest {
+    font-size: 44px;
+  }
+
+  .splash-logo .growit-trend-icon {
+    width: 270px;
+    height: 270px;
+
+    top: -95px;
+    right: -15px;
+  }
+
+  .splash-logo .growit-logo__tagline {
+    font-size: 8px;
+  }
+
+}

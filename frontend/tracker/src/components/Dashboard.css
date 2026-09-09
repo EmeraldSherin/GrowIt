@@ -1,0 +1,444 @@
+/* =========================================================
+   DASHBOARD LAYOUT
+========================================================= */
+
+.dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 38px 42px 60px;
+}
+
+.dashboard-header {
+  margin-bottom: 28px;
+}
+
+.dashboard-eyebrow {
+  display: inline-block;
+  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-primary-strong);
+}
+
+.dashboard-header h1 {
+  font-family: var(--font-display);
+  font-size: 34px;
+  margin-bottom: 6px;
+}
+
+.dashboard-header p {
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+/* =========================================================
+   SHARED SECTION CARD
+
+   Every dashboard block (calendar, stats, weekly review,
+   performance, insights) sits inside one of these.
+========================================================= */
+
+.dashboard-section {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 26px 28px;
+  margin-bottom: 22px;
+  transition: background var(--transition-theme), border-color var(--transition-theme),
+    box-shadow var(--transition-fast);
+}
+
+.dashboard-calendar-section {
+  padding: 22px 24px;
+}
+
+.dashboard-section h2 {
+  font-family: var(--font-display);
+  font-size: 21px;
+  margin: 0;
+}
+
+.section-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.section-eyebrow {
+  display: inline-block;
+  margin-bottom: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.section-date,
+.section-meta {
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--color-accent);
+  white-space: nowrap;
+}
+
+.section-description {
+  margin: 4px 0 0;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+/* =========================================================
+   STAT CARDS
+
+   auto-fit keeps the grid responsive without a media query
+   per breakpoint, whether there are 4, 6 or 7 cards.
+========================================================= */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 16px;
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.stat-card--primary {
+  background: var(--sidebar-active-bg);
+  border-color: rgba(167, 123, 99, 0.35);
+}
+
+.stat-card--success {
+  background: color-mix(in srgb, var(--color-success) 12%, var(--color-card));
+  border-color: color-mix(in srgb, var(--color-success) 30%, var(--color-border));
+}
+
+.stat-card--score {
+  background: linear-gradient(150deg, var(--color-primary), var(--color-primary-strong));
+  border-color: transparent;
+}
+
+.stat-card--score .stat-card__label,
+.stat-card--score .stat-card__hint {
+  color: rgba(255, 252, 248, 0.8);
+}
+
+.stat-card--score .stat-card__value,
+.stat-card--score .stat-card__value small {
+  color: #fffcf8;
+}
+
+.stat-card__label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.stat-card__value {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.1;
+}
+
+.stat-card__value small {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-left: 2px;
+}
+
+.stat-card__value--small {
+  font-size: 22px;
+}
+
+.stat-card__hint {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+/* =========================================================
+   CALENDAR
+========================================================= */
+
+.calendar__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.calendar__header h2 {
+  font-family: var(--font-display);
+  font-size: 21px;
+  margin: 0;
+}
+
+.calendar__navigation {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.calendar__nav-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: var(--color-card);
+  color: var(--color-text);
+  font-size: 15px;
+  cursor: pointer;
+  transition: background var(--transition-fast), transform var(--transition-fast);
+}
+
+.calendar__nav-button:hover {
+  background: var(--color-accent);
+}
+
+.calendar__nav-button:active {
+  transform: scale(0.92);
+}
+
+.calendar__month {
+  min-width: 130px;
+  text-align: center;
+  font-size: 14.5px;
+}
+
+.calendar__weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 8px;
+}
+
+.calendar__weekdays span {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.calendar__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.calendar__empty {
+  aspect-ratio: auto;
+}
+
+.calendar__day {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 42px;
+  aspect-ratio: auto;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background var(--transition-fast), border-color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.calendar__day:hover {
+  background: var(--color-accent);
+}
+
+.calendar__day-number {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.calendar__day--today {
+  border-color: var(--color-primary);
+}
+
+.calendar__day--today .calendar__day-number {
+  color: var(--color-primary-strong);
+  font-weight: 800;
+}
+
+.calendar__day--active {
+  background: var(--sidebar-active-bg);
+}
+
+.calendar__activity {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--color-primary-strong);
+}
+
+.calendar__activity-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-primary);
+}
+
+/* =========================================================
+   INSIGHTS
+========================================================= */
+
+.insights-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.insight-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.insight-card:hover {
+  transform: translateX(2px);
+}
+
+.insight-card__indicator {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  margin-top: 6px;
+  border-radius: 50%;
+  background: var(--color-text-secondary);
+}
+
+.insight-card h3 {
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+
+.insight-card p {
+  margin: 0;
+  font-size: 13.5px;
+  color: var(--color-text-secondary);
+}
+
+.insight-card.positive .insight-card__indicator {
+  background: var(--color-success);
+}
+
+.insight-card.positive {
+  border-color: color-mix(in srgb, var(--color-success) 30%, var(--color-border));
+}
+
+.insight-card.warning .insight-card__indicator {
+  background: var(--color-danger);
+}
+
+.insight-card.warning {
+  border-color: color-mix(in srgb, var(--color-danger) 25%, var(--color-border));
+  background: var(--color-danger-bg);
+}
+
+.insight-card.neutral .insight-card__indicator {
+  background: var(--color-primary);
+}
+
+/* =========================================================
+   PERFORMANCE CHART
+========================================================= */
+
+.performance-section .section-heading {
+  margin-bottom: 10px;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 860px) {
+  .dashboard {
+    padding: 22px 18px 48px;
+  }
+
+  .dashboard-header h1 {
+    font-size: 28px;
+  }
+
+  .dashboard-section {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 560px) {
+  .section-heading {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .calendar__header {
+    flex-direction: column;
+  }
+
+  .calendar__navigation {
+    align-self: stretch;
+    justify-content: space-between;
+  }
+
+  .calendar__day-number {
+    font-size: 12px;
+  }
+
+  .calendar__activity {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stat-card,
+  .insight-card,
+  .calendar__day,
+  .calendar__nav-button {
+    transition: none;
+  }
+}

@@ -1,0 +1,102 @@
+/* =========================================================
+   DAY ACTIVITIES
+
+   Shown below the calendar once a date is selected.
+========================================================= */
+
+.day-activities-section .section-heading {
+  margin-bottom: 20px;
+}
+
+.day-activities__empty {
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 32px 20px;
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+.day-activities__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.day-activity-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.day-activity-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+  border-color: color-mix(in srgb, var(--color-primary) 25%, var(--color-border));
+}
+
+.day-activity-card__title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.day-activity-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.day-activity-card__tag,
+.day-activity-card__badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.day-activity-card__tag {
+  background: var(--color-accent);
+  color: var(--color-text);
+}
+
+.day-activity-card__badge--pending {
+  color: var(--color-text-secondary);
+  background: var(--color-border);
+}
+
+.day-activity-card__badge--in-progress {
+  color: var(--color-primary-strong);
+  background: var(--sidebar-active-bg);
+}
+
+.day-activity-card__badge--completed {
+  color: var(--color-success);
+  background: color-mix(in srgb, var(--color-success) 15%, var(--color-card));
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 480px) {
+  .day-activities__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .day-activity-card {
+    transition: none;
+  }
+}
