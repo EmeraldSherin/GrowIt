@@ -25,7 +25,6 @@ const Activities = () => {
     }
   };
 
-  // Add / update an activity in local state after a successful save
   const handleActivityAdded = (activity) => {
     setActivities((currentActivities) => {
       const exists = currentActivities.some(
@@ -49,8 +48,11 @@ const Activities = () => {
   const handleDelete = async (id) => {
     try {
       await deleteActivity(id);
+
       setActivities((currentActivities) =>
-        currentActivities.filter((activity) => activity._id !== id)
+        currentActivities.filter(
+          (activity) => activity._id !== id
+        )
       );
     } catch (error) {
       console.error("Error deleting activity:", error);
@@ -61,23 +63,76 @@ const Activities = () => {
     <div className="dashboard">
       <header className="dashboard-header">
         <div>
-          <span className="dashboard-eyebrow">Plan &amp; track</span>
+          <span className="dashboard-eyebrow">
+            Plan &amp; track
+          </span>
+
           <h1>Activities</h1>
+
           <p>Create and manage your daily activities.</p>
         </div>
       </header>
 
-      <ActivityForm
-        onActivityAdded={handleActivityAdded}
-        editingActivity={editingActivity}
-        setEditingActivity={setEditingActivity}
-      />
+      {/* Add Activity */}
+      {!editingActivity && (
+        <ActivityForm
+          onActivityAdded={handleActivityAdded}
+          editingActivity={null}
+          setEditingActivity={setEditingActivity}
+        />
+      )}
 
       <ActivityList
         activities={activities}
         onEdit={handleEdit}
         onDelete={handleDelete}
       />
+
+      {/* Edit Activity Modal */}
+      {editingActivity && (
+        <div
+          className="activity-edit-overlay"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) {
+              setEditingActivity(null);
+            }
+          }}
+        >
+          <div
+            className="activity-edit-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="edit-activity-title"
+          >
+            <div className="activity-edit-modal__header">
+              <div>
+                <span className="section-eyebrow">
+                  Update
+                </span>
+
+                <h2 id="edit-activity-title">
+                  Edit Activity
+                </h2>
+              </div>
+
+              <button
+                type="button"
+                className="icon-button"
+                onClick={() => setEditingActivity(null)}
+                aria-label="Close edit activity"
+              >
+                ×
+              </button>
+            </div>
+
+            <ActivityForm
+              onActivityAdded={handleActivityAdded}
+              editingActivity={editingActivity}
+              setEditingActivity={setEditingActivity}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

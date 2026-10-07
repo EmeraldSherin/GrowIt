@@ -63,3 +63,21 @@ export const deleteGoal = async (id) => {
 
   return await response.json();
 };
+
+export const getGoalProgress = async (id, date) => {
+  const response = await fetch(
+    `${API_URL}/${id}/progress?date=${date}`,
+    {
+      method: "GET",
+      headers: getAuthHeaders()
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      "Failed to fetch goal progress"
+    );
+  }
+
+  return await response.json();
+};

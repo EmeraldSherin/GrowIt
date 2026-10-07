@@ -204,6 +204,140 @@
 }
 
 /* =========================================================
+   ACTIVITY LIST CONTROLS
+========================================================= */
+
+.activity-list-controls {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) 180px 220px;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 14px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.activity-list-controls > div {
+  min-width: 0;
+}
+
+.activity-list-controls label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-secondary);
+}
+
+.activity-list-controls input,
+.activity-list-controls select {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   EDIT ACTIVITY MODAL
+========================================================= */
+
+.activity-edit-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
+  background: color-mix(
+    in srgb,
+    var(--color-text) 35%,
+    transparent
+  );
+
+  backdrop-filter: blur(5px);
+
+  animation: activity-overlay-in 180ms ease-out;
+}
+
+.activity-edit-modal {
+  width: min(760px, 100%);
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+
+  box-shadow: var(--shadow-lg);
+
+  animation: activity-modal-in 200ms ease-out;
+}
+
+.activity-edit-modal__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 24px 24px 0;
+}
+
+.activity-edit-modal__header h2 {
+  margin: 2px 0 0;
+  font-family: var(--font-display);
+  font-size: 24px;
+}
+
+.activity-edit-modal__header .icon-button {
+  flex-shrink: 0;
+}
+
+/*
+   The ActivityForm already has its own card styling.
+   Remove that outer card appearance inside the modal.
+*/
+
+.activity-edit-modal .activity-form-section {
+  margin: 0;
+  padding: 24px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.activity-edit-modal .activity-form-section .section-heading {
+  display: none;
+}
+
+@keyframes activity-overlay-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes activity-modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* =========================================================
    RESPONSIVE
 ========================================================= */
 
@@ -234,5 +368,43 @@
 @media (prefers-reduced-motion: reduce) {
   .activity-card {
     transition: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .activity-form__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .activity-form__actions {
+    flex-direction: column;
+  }
+
+  .activity-form__actions .btn {
+    width: 100%;
+  }
+
+  .activity-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .activity-list-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .activity-search {
+    grid-column: auto;
+  }
+
+  .activity-edit-overlay {
+    padding: 8px;
+  }
+
+  .activity-edit-modal__header {
+    padding: 18px 18px 0;
+  }
+
+  .activity-edit-modal .activity-form-section {
+    padding: 18px;
   }
 }

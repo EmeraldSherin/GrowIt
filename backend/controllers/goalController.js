@@ -129,11 +129,37 @@ const deleteGoal = async (req, res) => {
     });
   }
 };
+const getRecurringGoalProgress = async (req, res) => {
+  try {
+    const progress =
+      await goalService.getRecurringGoalProgress(
+        req.params.id,
+        req.user.userId,
+        req.query.date
+      );
+
+    if (!progress) {
+      return res.status(404).json({
+        message: "Goal not found"
+      });
+    }
+
+    res.status(200).json(progress);
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      message: "Failed to calculate goal progress",
+      error: error.message
+    });
+  }
+};
 
 
 module.exports = {
   getGoals,
   createGoal,
   updateGoal,
-  deleteGoal
+  deleteGoal,
+  getRecurringGoalProgress
 };

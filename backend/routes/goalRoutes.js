@@ -4,7 +4,8 @@ const {
   getGoals,
   createGoal,
   updateGoal,
-  deleteGoal
+  deleteGoal,
+  getRecurringGoalProgress
 } = require("../controllers/goalController");
 
 const authMiddleware = require("../middleware/authMiddleware");
@@ -21,6 +22,12 @@ router.post(
   "/",
   authMiddleware,
   createGoal
+);
+
+router.get(
+  "/:id/progress",
+  authMiddleware,
+  getRecurringGoalProgress
 );
 
 router.put(

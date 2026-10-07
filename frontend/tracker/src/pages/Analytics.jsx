@@ -6,7 +6,6 @@ import WeeklyStats from "../components/WeeklyStats";
 import PerformanceChart from "../components/PerformanceCharts";
 import CategoryStats from "../components/CategoryStats";
 import StreakStats from "../components/StreakStats";
-import Insights from "../components/Insights";
 import HeatMap from "../components/HeatMap";
 
 import "../components/Dashboard.css";
@@ -42,7 +41,6 @@ const Analytics = () => {
       <PerformanceChart activities={activities} />
       <CategoryStats activities={activities} />
       <StreakStats activities={activities} />
-      <Insights activities={activities} />
       <HeatMap activities={activities} />
     </div>
   );

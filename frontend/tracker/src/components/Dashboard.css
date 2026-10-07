@@ -392,6 +392,127 @@
   margin-bottom: 10px;
 }
 
+/* Daily tracker section */
+
+.today-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.today-summary__item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-card);
+}
+
+.today-summary__label {
+  color: var(--color-text-secondary);
+  font-size: 13px;
+}
+
+.today-summary__item strong {
+  color: var(--color-text);
+  font-size: 24px;
+}
+
+.today-activity-list {
+  display: grid;
+  gap: 12px;
+}
+
+.today-activity {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-card);
+}
+
+.today-activity__content {
+  min-width: 0;
+}
+
+.today-activity__content h3 {
+  margin: 0 0 6px;
+  color: var(--color-text);
+  font-size: 16px;
+}
+
+.today-activity__content p {
+  margin: 0 0 8px;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+}
+
+.today-activity__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+}
+
+.today-activity__meta span {
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: var(--color-surface, var(--color-card));
+}
+
+.dashboard-message {
+  padding: 20px;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.dashboard-message p {
+  margin: 4px 0;
+}
+
+.daily-goals-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.daily-goal__details {
+  margin: 6px 0 14px;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+}
+
+.daily-goal__error {
+  margin-top: 10px;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+}
+
+@media (max-width: 640px) {
+  .today-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .today-activity {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .daily-goals-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
 /* =========================================================
    RESPONSIVE
 ========================================================= */
